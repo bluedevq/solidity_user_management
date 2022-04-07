@@ -37,7 +37,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>STT</th>
                         <th>Name</th>
                         <th>Gender</th>
                         <th></th>
@@ -261,12 +261,13 @@
     function reloadTable() {
         UserContract.methods.list().call().then(function (result) {
             var html = '';
+            var index = 0;
             for (var i = 0; i < result.length; i++) {
                 if (!result[i].name) {
                     continue;
                 }
                 html += '<tr class="' + result[i].id + '">'
-                    + '<td>' + result[i].id + '</td>'
+                    + '<td>' + (index + 1) + '</td>'
                     + '<td>' + result[i].name + '</td>'
                     + '<td>' + result[i].gender + '</td>'
                     + '<td>'
@@ -274,6 +275,7 @@
                     + '<a href="javascript:void(0)" class="delete-user" data-toggle="modal" data-target="#user-info" data-id="' + result[i].id + '"><i class="fas fa-trash"></i></a>'
                     + '</td>'
                     + '</tr>';
+                index++;
             }
             $('.list-user').html(html);
         });
